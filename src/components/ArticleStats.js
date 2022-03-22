@@ -1,30 +1,5 @@
 import React, { useMemo } from 'react';
-
-function getReadingTime(text) {
-  const numberOfWords = text.split(' ').length;
-  const letters = text
-    .split('')
-    .filter((l) => l !== ' ')
-    .reduce((acc, letter) => acc + 1, 0);
-  const averageWordLength = letters / numberOfWords;
-  const approximateWords = letters / averageWordLength;
-  const totalMinutes = approximateWords / 238;
-
-  for (let i = 0; i < 100000000; i++) {
-    // contrived work
-    Math.random();
-  }
-
-  if (totalMinutes > 60) {
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = Math.floor(totalMinutes - hours * 60);
-    return `${hours} hours, ${minutes} minutes`;
-  } else if (totalMinutes > 1) {
-    return `${Math.floor(totalMinutes)} minutes`;
-  } else {
-    return `Less than a minute`;
-  }
-}
+import { getReadingTime } from '../helpers';
 
 export function ArticleStats({ showExplanation, text, transformer }) {
   // slow
@@ -35,12 +10,13 @@ export function ArticleStats({ showExplanation, text, transformer }) {
 
   return (
     <div>
+      <h4>Reading time</h4>
       {showExplanation && (
-        <p>On average, people can read 238 words per minute.</p>
+        <p className='explanation'>
+          Reading time: Predicts the amount of time it will take to read this
+          article. Based on an average reading speed of 238 words per minute.
+        </p>
       )}
-      <p>
-        <strong>Reading time:</strong>
-      </p>
       <p>{readingTime}</p>
     </div>
   );
