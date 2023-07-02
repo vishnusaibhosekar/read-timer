@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { getReadingTime } from '../helpers';
 
 export function ArticleStats({ showExplanation, text, transformer }) {
-  const readingTime = getReadingTime(text);
+  const readingTime = useMemo(() => getReadingTime(text), [text]);
 
   return (
     <div>
